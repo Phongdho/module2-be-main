@@ -6,9 +6,12 @@ const createProduct = async () => {
   console.log("Creating some products");
   for (let index = 0; index < numberOfProduct; index++) {
     const singleProduct = {
-      name: faker.commerce.product(),
+      name: faker.commerce.productName(),
       price: parseInt(faker.commerce.price()),
+      category: faker.commerce.department(),
       stock: Math.ceil(Math.random() * 100),
+      description: faker.commerce.productDescription(),
+      photo: faker.image.fashion(),
     };
 
     const found = await Product.findOne({ name: singleProduct.name });

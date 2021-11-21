@@ -46,7 +46,7 @@ router.delete("/:cartId", authenticationMiddleware, deleteCart);
  * Description: get single cart
  * Access : admin
  */
-router.get("/single-cart", authenticationMiddleware, isAdmin, getSingleCart);
+router.get("/single-cart", authenticationMiddleware, getSingleCart);
 
 /**
  * Description: Get all carts

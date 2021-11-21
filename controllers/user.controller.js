@@ -33,6 +33,25 @@ userController.getAll = async (req, res) => {
     "Successfully get all users"
   );
 };
+
+userController.getCurrentUser = async (req, res, next) => {
+  let result;
+  try {
+    result = await User.findById(req.currentUser._id);
+    console.log(result, "test user")
+  } catch (error) {
+    return next(error);
+  }
+  return sendResponse(
+    res,
+    200,
+    true,
+    result,
+    false,
+    "Successfully get current user"
+  );
+};
+
 userController.createByEmailPassword = async (req, res, next) => {
   const { name, email } = req.body;
   let { password } = req.body;
@@ -89,9 +108,10 @@ userController.loginWithEmailPassword = async (req, res, next) => {
 
 userController.updateById = async (req, res, next) => {
   let result;
-  const allowOptions = ["name", "email"];
+  const allowOptions = ["name", "email", "avatar"];
   const updateObject = {};
-  const imagePath = req.file.path;
+  // const imagePath = req.file.path;
+  // console.log(imagePath, "path");
   try {
     allowOptions.forEach((option) => {
       if (req.body[option] !== undefined) {
@@ -99,11 +119,10 @@ userController.updateById = async (req, res, next) => {
       }
     });
 
-    //
-    if (imagePath) {
-      const cloudinaryResponse = await uploader.upload(imagePath);
-      updateObject.avatar = cloudinaryResponse.secure_url;
-    }
+    // if (imagePath) {
+    //   const cloudinaryResponse = await uploader.upload(imagePath);
+    //   updateObject.avatar = cloudinaryResponse.secure_url;
+    // }
 
     result = await User.findByIdAndUpdate(req.currentUser._id, updateObject, {
       new: true,

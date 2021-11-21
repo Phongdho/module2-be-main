@@ -5,7 +5,8 @@ const commentSchema = Schema(
     {
         author: { type: Schema.Types.ObjectId, ref: "User", required: true },
         content: { type: String, required: true },
-        targetProduct: { type: Schema.Types.ObjectId, ref: "Product", required: true }
+        targetProduct: { type: Schema.Types.ObjectId, ref: "Product", required: true },
+        isDeleted: {type: Boolean, default: false},
     }, {
     timestamps: true
 }

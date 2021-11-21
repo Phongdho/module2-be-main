@@ -140,7 +140,7 @@ cartController.getSingleCart = async (req, res, next) => {
 
   try {
     console.log(owner, cartId);
-    result = await Cart.findOne({ owner, _id: cartId }).populate(
+    result = await Cart.findOne({owner}).populate(
       "products.productId"
     );
   } catch (error) {
@@ -273,13 +273,7 @@ cartController.deleteCart = async (req, res, next) => {
   const { cartId } = req.params;
   const owner = req.currentUser._id;
   try {
-    result = await Cart.findOneAndUpdate(
-      { _id: cartId, owner },
-      { isDeleted: true },
-      {
-        new: true,
-      }
-    );
+    result = await Cart.findByIdAndDelete(cartId);
   } catch (error) {
     return next(error);
   }

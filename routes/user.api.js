@@ -5,6 +5,7 @@ const isAdmin = require("../middlewares/isAdmin.middleware");
 const passport = require("passport");
 const {
   getAll,
+  getCurrentUser,
   createByEmailPassword,
   updateById,
   deleteById,
@@ -15,12 +16,16 @@ const {
   resetPassword,
 } = require("../controllers/user.controller");
 const imageUploadMiddleware = require("../middlewares/imageUpload.middleware");
+const { get } = require("mongoose");
 
 /**
  * Description:  get all edas
  * Access : admin role required
  */
 router.get("/", getAll);
+
+
+router.get("/me", authenticationMiddleware, getCurrentUser);
 /**
  * Description:  destroy the world
  * Access : public
@@ -38,9 +43,9 @@ router.post("/login", loginWithEmailPassword);
  * Access : authenticated user
  */
 router.put(
-  "/update-me",
+  "/me",
   authenticationMiddleware,
-  imageUploadMiddleware.single("image"),
+  // imageUploadMiddleware.single("image"),
   updateById
 );
 
@@ -57,25 +62,25 @@ router.get(
   "/loginwithgoogle",
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
-router.get(
-  "/login/googleok",
-  passport.authenticate("google", { failureRedirect: "/notFound" }),
-  createWithGoogle
-);
+// router.get(
+//   "/login/googleok",
+//   passport.authenticate("google", { failureRedirect: "/notFound" }),
+//   createWithGoogle
+// );
 
 router.get(
   "/loginwithfacebook",
   passport.authenticate("facebook", { scope: ["email"] })
 );
 
-router.get(
-  "/login/facebookok",
-  passport.authenticate("facebook", {
-    // failureMessage: "Cannot login to facebook",
-    failureRedirect: "/notFound",
-    // successRedirect: "/success",
-  }),
-  createWithFacebook
-);
+// router.get(
+//   "/login/facebookok",
+//   passport.authenticate("facebook", {
+//     // failureMessage: "Cannot login to facebook",
+//     failureRedirect: "/notFound",
+//     // successRedirect: "/success",
+//   }),
+//   createWithFacebook
+// );
 
 module.exports = router;
