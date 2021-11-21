@@ -1,6 +1,5 @@
 const faker = require('faker');
 const User = require("./models/User")
-const numberOfUser = 100;
 const bcrypt = require('bcrypt');
 const SALT_ROUND = parseInt(process.env.SALT_ROUND);
 const fs = require('fs');
@@ -9,6 +8,7 @@ const { uploader } = require("./helpers/cloudinaryConfig");
 let images = fs.readdirSync('./images');
 // console.log(images)
 
+const numberOfUser = 50;
 const createUser = async (req, res, next) => {
     // try {
         await User.collection.drop();
@@ -20,8 +20,8 @@ const createUser = async (req, res, next) => {
             const singleUser = {
                 name: faker.name.firstName(),
                 email: faker.internet.email(),
-                password: "haha",
-                currentBalance: faker.finance.amount(),
+                password: "123",
+                currentBalance: faker.datatype.number({ min: 1000, max: 10000 }),
                 avatar: faker.random.arrayElement(images),
                 // avatar: faker.image.people()
             };

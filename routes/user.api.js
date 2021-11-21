@@ -62,25 +62,25 @@ router.get(
   "/loginwithgoogle",
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
-// router.get(
-//   "/login/googleok",
-//   passport.authenticate("google", { failureRedirect: "/notFound" }),
-//   createWithGoogle
-// );
+router.get(
+  "/login/googleok",
+  passport.authenticate("google", { failureRedirect: "/notFound" }),
+  createWithGoogle
+);
 
 router.get(
   "/loginwithfacebook",
   passport.authenticate("facebook", { scope: ["email"] })
 );
 
-// router.get(
-//   "/login/facebookok",
-//   passport.authenticate("facebook", {
-//     // failureMessage: "Cannot login to facebook",
-//     failureRedirect: "/notFound",
-//     // successRedirect: "/success",
-//   }),
-//   createWithFacebook
-// );
+router.get(
+  "/login/facebookok",
+  passport.authenticate("facebook", {
+    // failureMessage: "Cannot login to facebook",
+    failureRedirect: "/notFound",
+    // successRedirect: "/success",
+  }),
+  createWithFacebook
+);
 
 module.exports = router;

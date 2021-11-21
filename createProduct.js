@@ -1,6 +1,6 @@
 const faker = require("faker");
 const Product = require("./models/Product");
-const numberOfProduct = 100;
+const numberOfProduct = 2;
 
 const createProduct = async () => {
   console.log("Creating some products");
@@ -11,7 +11,7 @@ const createProduct = async () => {
       category: faker.commerce.department(),
       stock: Math.ceil(Math.random() * 100),
       description: faker.commerce.productDescription(),
-      photo: faker.image.fashion(),
+      photo: faker.image.food(),
     };
 
     const found = await Product.findOne({ name: singleProduct.name });
