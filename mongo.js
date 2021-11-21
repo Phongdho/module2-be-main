@@ -18,7 +18,7 @@ mongoose.connect(
   (err) => {
     if (!err) {
       console.log("MongoDB Atlas Connection Succeeded.");
-      fakeUser();
+      // fakeUser();
       // fakeProduct();
       // emailHelper.createTemplatesIfNotExists();
       // emailHelper.createResetPasswordTemplate();
